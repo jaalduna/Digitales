@@ -27,9 +27,9 @@ module Multiplicador(
 	 
 	 wire Z, Q0, LoadA, LoadQ, LoadB,LoadP, ResetA, ResetC, DecC,Shift;
 	 
-	 ControlUnit cu(Z,btn,Q0,clk,0,LoadA,LoadQ,LoadB,LoadP,ResetA,ResetC,DecC,Shift);
+	 ControlUnit cu(Z,btn,Q0,clk,1'b0,LoadA,LoadQ,LoadB,LoadP,ResetA,ResetC,DecC,Shift);
 	 wire [3:0] dataout;
-	 Counter contador(7,dataout,LoadP,DecC);
+	 Counter contador(4'd7,dataout,LoadP,DecC);
 	 ZeroDetect detector(dataout,Z);
 	 
 	 wire cableAQ,cableCA;
@@ -41,15 +41,15 @@ module Multiplicador(
 	 wire Cout;
 	 wire [7:0] BtoAdd;
 	 
-	 add_bx sumador(Cout,sumaA,BtoAdd,ouput[15:8],0);
+	 add_bx sumador(Cout,sumaA,BtoAdd,ouput[15:8],1'b0);
 	 
-	 Register registroB(sw,BtoAdd,LoadB,0,clk);
+	 Register registroB(sw,BtoAdd,LoadB,1'b0,clk);
 	 
 	 reg FFin;
 	 always@(Q0)
 	 begin
 		if(Q0) FFin <= Cout;
-		else FFin <= 0;
+		else FFin <= 1'b0;
 	 end
 	 
 	 DFlipFlop FFC(FFin,ResetC,clk,cableAQ);
