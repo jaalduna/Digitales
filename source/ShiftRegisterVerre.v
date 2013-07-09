@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    18:32:26 06/20/2013 
+// Create Date:    19:02:41 07/08/2013 
 // Design Name: 
-// Module Name:    ShiftRegister 
+// Module Name:    ShiftRegisterVerre 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module ShiftRegister(
+module ShiftRegisterVerre(
     input In,
     output reg Out,
     input [7:0] LoadIn,
@@ -46,15 +46,15 @@ module ShiftRegister(
 		else if(Load) data <= LoadIn;
 		else
 		if(Shift)begin
-			Out <= data[0];
-			data[0] <= data[1];
-			data[1] <= data[2];
-			data[2] <= data[3];
-			data[3] <= data[4];
-			data[4] <= data[5];
-			data[5] <= data[6];
-			data[6] <= data[7];
-			data[7] <= In;
+			Out <= data[7];
+			data[7] <= data[6];
+			data[6] <= data[5];
+			data[5] <= data[4];
+			data[4] <= data[3];
+			data[3] <= data[2];
+			data[2] <= data[1];
+			data[1] <= data[0];
+			data[0] <= In;
 		end
 		//DataOut <= data;
 	end

@@ -1,23 +1,5 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    19:42:07 06/20/2013 
-// Design Name: 
-// Module Name:    ControlUnit 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
 module ControlUnit(
     input Z,
     input G,
@@ -35,63 +17,76 @@ module ControlUnit(
     );
 	 
 	 reg [1:0] status;
-	 always@(Reset) status <= 0;
-	 
-	 always@(posedge Clk)
+	 /*always@(Reset)
 	 begin
-		case(status)
+		status <= 1'b0;
+		ResetA <= 1'b1;
+		ResetC <= 1'b1;
+	 end*/
+	 
+	 always@(posedge Clk,posedge Reset)
+	 begin
+		if(Reset)
+		begin
+		status <= 1'b0;
+		ResetA <= 1'b1;
+		ResetC <= 1'b1;
+		end
+		else case(status)
 		0:
 			begin
 			if(G)
 				begin
-				LoadB <= 1;
-				LoadP <= 1;
-				DecC <= 0;
-				ResetC <= 0;
-				ResetA <= 0;
-				LoadA <= 0;
-				LoadQ <= 0;
-				status <= 1;
-				Shift <= 0;
+					LoadB <= 1;
+					LoadP <= 1;
+					DecC <= 0;
+					ResetC <= 0;
+					ResetA <= 0;
+					LoadA <= 0;
+					LoadQ <= 0;
+					status <= 1;
+					Shift <= 0;
 				end
 			else
 				begin
-				status <=0;
-				LoadA <=0;
-				LoadQ <=0;
-				LoadB <=0;
-				LoadP <=0;
-				ResetA <=0;
-				ResetC <=0;
-				DecC <=0;
-				Shift <=0;
+					status <=0;
+					LoadA <=0;
+					LoadQ <=0;
+					LoadB <=0;
+					LoadP <=0;
+					ResetA <=0;
+					ResetC <=0;
+					DecC <=0;
+					Shift <=0;
 				end
 			end
 		1:
 			begin
 			if(G)
-			begin
-				LoadQ <= 1;
-				LoadB <= 0;
-				LoadP <= 1;
-				ResetA <= 1;
-				ResetC <= 1;
-				Shift <= 0;
-				if(Q0) status <= 2;
-				else status <= 3;
-			end
+				begin
+					LoadQ <= 1;
+					LoadA <= 0;
+					LoadB <= 0;
+					LoadP <= 1;
+					ResetA <= 1;
+					ResetC <= 1;
+					Shift <= 0;
+					DecC <= 0;
+					if(Q0) status <= 2;
+					else status <= 3;
+				end
 			else
-			begin
-				status <=1;
-				LoadA <=0;
-				LoadQ <=0;
-				LoadB <=0;
-				LoadP <=0;
-				ResetA <=0;
-				ResetC <=0;
-				DecC <=0;
-				Shift <=0;
-			end
+				begin
+					status <=1;
+					LoadA <=0;
+					LoadQ <=0;
+					LoadB <=0;
+					LoadP <=0;
+					ResetA <=0;
+					ResetC <=0;
+					DecC <=0;
+					Shift <=0;
+				end
 			end
 		2:
 			begin

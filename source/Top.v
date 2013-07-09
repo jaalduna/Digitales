@@ -22,7 +22,9 @@ module Top(
 		input btn,
 		input [7:0] sw,
 		input clk,
-		output [27:0] display
+		output [6:0] seg,
+		output [3:0] an,
+		output dp
 		
     );
 	 
@@ -30,10 +32,12 @@ module Top(
 	 Multiplicador mul(btn,clk,sw,salidamul);
 	 
 	 //Procesamos las salidas.
+	 wire [27:0] display;
 	 DisplayController s1(salidamul[15:12],display[27:21]);
 	 DisplayController s2(salidamul[11:8],display[20:14]);
 	 DisplayController s3(salidamul[7:4],display[13:7]);
 	 DisplayController s4(salidamul[3:0],display[6:0]);
+	 DisplayUpdater du(display,clk,an,seg,dp);
 	 
 	 
 

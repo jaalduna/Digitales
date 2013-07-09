@@ -27,11 +27,11 @@ module DFlipFlop(
 	 
 	 reg data;
 	 
-	 always@(Reset)
-		data <= 0;
-	 always@(posedge Clk)
+	
+	 always@(posedge Clk, posedge Reset)
 	 begin
-		data <= D;
+		if(Reset) data <= 0;
+		else data <= D;
 	 end
 	 
 	 assign Q = data;

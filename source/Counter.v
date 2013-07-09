@@ -20,22 +20,26 @@
 //////////////////////////////////////////////////////////////////////////////////
 module Counter(
     input [3:0] DataIn,
-    output reg [3:0] DataOut,
+    output [3:0] DataOut,
     input Load,
+	 input Dec,
     input Clk
     );
 	 
 	 reg [3:0] data;
 	 
-	 always@(Load)
-		data <= DataIn;
-	 
-	 always@(posedge Clk)
+	 /*always@(Load)
 	 begin
-		data <= data-1;
-		DataOut <= data;
-	 end
+		data <= DataIn;
+	 end*/
 	 
+	 always@(posedge Clk,posedge Load)
+	 begin
+		if(Load) data <= DataIn;
+		else if(Dec) data <= data-1;
+		//DataOut <= data;
+	 end
+	 assign DataOut = data;
 	 
 	
 endmodule

@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    19:44:01 06/20/2013 
+// Create Date:    23:19:05 07/06/2013 
 // Design Name: 
-// Module Name:    Register 
+// Module Name:    bitConstant 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,24 +18,11 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module Register(
-    input [7:0] DataIn,
-    output [7:0] DataOut,
-    input Load,
-    input Reset,
-    input Clk
+module bitConstant(
+    output [3:0] Out
     );
 	 
-	 reg [7:0] data;
-	 
-	 
-	 always@(posedge Clk, posedge Reset)
-	 begin
-		if(Reset) data <= 0;
-		else if(Load) data <= DataIn;
-		//DataOut <= data;
-	 end
-	 assign DataOut = data;
+	 assign Out = 4'b0111;
 
 
 endmodule

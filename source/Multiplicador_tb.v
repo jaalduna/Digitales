@@ -28,6 +28,7 @@ module Multiplicador_tb;
 	reg btn;
 	reg clk;
 	reg [7:0] sw;
+	reg resetCU;
 
 	// Outputs
 	wire [15:0] ouput;
@@ -37,7 +38,8 @@ module Multiplicador_tb;
 		.btn(btn), 
 		.clk(clk), 
 		.sw(sw), 
-		.ouput(ouput)
+		.ouput(ouput),
+		.resetCU(resetCU)
 	);
 
 	initial begin
@@ -45,25 +47,32 @@ module Multiplicador_tb;
 		btn = 0;
 		clk = 0;
 		sw = 0;
+		resetCU = 1;
 
 		// Wait 100 ns for global reset to finish
 		#100;
 		
-		sw=2;
-		btn=1;
+		
 		clk=1;
+		resetCU = 0;
+		#10;
+		clk=0;
+		#10;
+		clk=1;
+		sw=1; // primer factor
+		btn=1;
 		#10;
 		clk=0;
 		btn=0;
-		sw=0;
+		//sw=0;
 		#10;
 		clk=1;
 		btn=1;
-		sw=3;
+		sw=0; //segundo factor
 		#10;
 		clk=0;
 		btn=0;
-		sw=0;
+		//sw=0;
 		#10;
 		clk=1;
 		#10;
